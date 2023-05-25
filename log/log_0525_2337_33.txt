@@ -1,0 +1,130 @@
+====================================================================================================
+> training arguments:
+>>> if_test: 0
+>>> run_model: seqgan
+>>> k_label: 2
+>>> dataset: oracle
+>>> model_type: vanilla
+>>> loss_type: rsgan
+>>> mu_type: ragan
+>>> eval_type: Ra
+>>> d_type: Ra
+>>> if_real_data: 0
+>>> cuda: 0
+>>> device: 0
+>>> devices: 0
+>>> shuffle: 0
+>>> gen_init: normal
+>>> dis_init: uniform
+>>> n_parent: 1
+>>> eval_b_num: 8
+>>> lambda_fq: 1.0
+>>> lambda_fd: 0.0
+>>> d_out_mean: True
+>>> freeze_dis: False
+>>> freeze_clas: False
+>>> use_all_real_fake: False
+>>> use_population: False
+>>> samples_num: 10000
+>>> vocab_size: 5000
+>>> mle_epoch: 120
+>>> clas_pre_epoch: 10
+>>> adv_epoch: 200
+>>> inter_epoch: 15
+>>> batch_size: 64
+>>> max_seq_len: 20
+>>> start_letter: 1
+>>> padding_idx: 0
+>>> gen_lr: 0.01
+>>> gen_adv_lr: 0.0001
+>>> dis_lr: 0.0001
+>>> clip_norm: 5.0
+>>> pre_log_step: 10
+>>> adv_log_step: 1
+>>> train_data: dataset/oracle.txt
+>>> test_data: dataset/testdata/oracle_test.txt
+>>> temp_adpt: exp
+>>> evo_temp_step: 1
+>>> temperature: 1
+>>> ora_pretrain: 1
+>>> gen_pretrain: 0
+>>> dis_pretrain: 0
+>>> adv_g_step: 1
+>>> rollout_num: 16
+>>> gen_embed_dim: 32
+>>> gen_hidden_dim: 32
+>>> goal_size: 16
+>>> step_size: 4
+>>> mem_slots: 1
+>>> num_heads: 2
+>>> head_size: 256
+>>> d_step: 5
+>>> d_epoch: 3
+>>> adv_d_step: 4
+>>> adv_d_epoch: 2
+>>> dis_embed_dim: 64
+>>> dis_hidden_dim: 64
+>>> num_rep: 64
+>>> use_nll_oracle: 1
+>>> use_nll_gen: 1
+>>> use_nll_div: 1
+>>> use_bleu: 1
+>>> use_self_bleu: 1
+>>> use_clas_acc: True
+>>> use_ppl: 0
+>>> log_file: log/log_0525_2337_33.txt
+>>> save_root: save/20230525/oracle/seqgan_vanilla_dt-Ra_lt-rsgan_mt-ra_et-Ra_sl20_temp1_lfd0.0_T0525_2337_33/
+>>> signal_file: run_signal.txt
+>>> tips: SeqGAN experiments
+====================================================================================================
+Starting Generator MLE Training...
+[MLE-GEN] epoch 0 : pre_loss = 7.8525, NLL_oracle = 9.8162, NLL_gen = 7.72, NLL_div = 7.7589
+[MLE-GEN] epoch 10 : pre_loss = 7.0842, NLL_oracle = 9.2523, NLL_gen = 7.0735, NLL_div = 7.1904
+[MLE-GEN] epoch 20 : pre_loss = 6.7457, NLL_oracle = 8.9983, NLL_gen = 6.7576, NLL_div = 6.7558
+[MLE-GEN] epoch 30 : pre_loss = 6.5643, NLL_oracle = 8.9943, NLL_gen = 6.5557, NLL_div = 6.5688
+[MLE-GEN] epoch 40 : pre_loss = 6.4604, NLL_oracle = 8.9817, NLL_gen = 6.4309, NLL_div = 6.4604
+[MLE-GEN] epoch 50 : pre_loss = 6.3847, NLL_oracle = 8.9661, NLL_gen = 6.3379, NLL_div = 6.3745
+[MLE-GEN] epoch 60 : pre_loss = 6.3384, NLL_oracle = 8.9406, NLL_gen = 6.2887, NLL_div = 6.3044
+[MLE-GEN] epoch 70 : pre_loss = 6.3153, NLL_oracle = 8.9502, NLL_gen = 6.2474, NLL_div = 6.2766
+[MLE-GEN] epoch 80 : pre_loss = 6.2749, NLL_oracle = 8.9288, NLL_gen = 6.2012, NLL_div = 6.2393
+[MLE-GEN] epoch 90 : pre_loss = 6.2675, NLL_oracle = 8.9258, NLL_gen = 6.1791, NLL_div = 6.2136
+[MLE-GEN] epoch 100 : pre_loss = 6.2342, NLL_oracle = 8.9175, NLL_gen = 6.1473, NLL_div = 6.1823
+[MLE-GEN] epoch 110 : pre_loss = 6.2382, NLL_oracle = 8.9119, NLL_gen = 6.1444, NLL_div = 6.1736
+[MLE-GEN] epoch 119 : pre_loss = 6.2112, NLL_oracle = 8.908, NLL_gen = 6.1099, NLL_div = 6.1577
+Starting Discriminator Training...
+[MLE-DIS] d_step 0: d_loss = 0.6387, train_acc = 0.6763, eval_acc = 0.5625,
+[MLE-DIS] d_step 1: d_loss = 0.1824, train_acc = 0.9616, eval_acc = 0.5293,
+[MLE-DIS] d_step 2: d_loss = 0.0321, train_acc = 0.9997, eval_acc = 0.5264,
+[MLE-DIS] d_step 3: d_loss = 0.0120, train_acc = 1.0000, eval_acc = 0.5146,
+[MLE-DIS] d_step 4: d_loss = 0.0071, train_acc = 0.9999, eval_acc = 0.5254,
+Starting Adversarial Training...
+Initial generator: NLL_oracle = 8.8995, NLL_gen = 6.1099, NLL_div = 6.1524
+-----
+ADV EPOCH 0
+-----
+[ADV-GEN]: g_loss = 772.1518, NLL_oracle = 8.8662, NLL_gen = 6.1103, NLL_div = 6.1369
+[ADV-DIS] d_step 0: d_loss = 0.0103, train_acc = 0.9995, eval_acc = 0.5029,
+[ADV-DIS] d_step 1: d_loss = 0.0075, train_acc = 0.9998, eval_acc = 0.4990,
+[ADV-DIS] d_step 2: d_loss = 0.0061, train_acc = 0.9997, eval_acc = 0.5020,
+[ADV-DIS] d_step 3: d_loss = 0.0046, train_acc = 0.9996, eval_acc = 0.5020,
+-----
+ADV EPOCH 1
+-----
+[ADV-GEN]: g_loss = 216.8623, NLL_oracle = 8.8527, NLL_gen = 6.1149, NLL_div = 6.1281
+[ADV-DIS] d_step 0: d_loss = 0.0037, train_acc = 0.9997, eval_acc = 0.5039,
+[ADV-DIS] d_step 1: d_loss = 0.0029, train_acc = 0.9999, eval_acc = 0.4971,
+[ADV-DIS] d_step 2: d_loss = 0.0027, train_acc = 0.9999, eval_acc = 0.4971,
+[ADV-DIS] d_step 3: d_loss = 0.0024, train_acc = 0.9999, eval_acc = 0.5010,
+-----
+ADV EPOCH 2
+-----
+[ADV-GEN]: g_loss = 93.7338, NLL_oracle = 8.8335, NLL_gen = 6.1212, NLL_div = 6.1152
+[ADV-DIS] d_step 0: d_loss = 0.0025, train_acc = 0.9998, eval_acc = 0.5010,
+[ADV-DIS] d_step 1: d_loss = 0.0017, train_acc = 0.9999, eval_acc = 0.5039,
+[ADV-DIS] d_step 2: d_loss = 0.0014, train_acc = 1.0000, eval_acc = 0.5049,
+[ADV-DIS] d_step 3: d_loss = 0.0015, train_acc = 0.9998, eval_acc = 0.5039,
+-----
+ADV EPOCH 3
+-----
+[ADV-GEN]: g_loss = 35.9178, NLL_oracle = 8.8308, NLL_gen = 6.128, NLL_div = 6.1102
+[ADV-DIS] d_step 0: d_loss = 0.0014, train_acc = 0.9999, eval_acc = 0.5039,
