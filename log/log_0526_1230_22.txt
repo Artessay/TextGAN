@@ -31,7 +31,7 @@
 >>> clas_pre_epoch: 10
 >>> adv_epoch: 200
 >>> inter_epoch: 10
->>> batch_size: 64
+>>> batch_size: 16
 >>> max_seq_len: 51
 >>> start_letter: 1
 >>> padding_idx: 0
@@ -72,8 +72,10 @@
 >>> use_self_bleu: 1
 >>> use_clas_acc: True
 >>> use_ppl: 0
->>> log_file: log/log_0526_1004_46.txt
->>> save_root: save/20230526/emnlp_news/leakgan_vanilla_dt-Ra_lt-rsgan_mt-ra_et-Ra_sl51_temp1_lfd0.0_T0526_1004_46/
+>>> log_file: log/log_0526_1230_22.txt
+>>> save_root: save/20230526/emnlp_news/leakgan_vanilla_dt-Ra_lt-rsgan_mt-ra_et-Ra_sl51_temp1_lfd0.0_T0526_1230_22/
 >>> signal_file: run_signal.txt
 >>> tips: LeakGAN experiments
 ====================================================================================================
+>>> Interleaved Round 0...
+Starting Discriminator Training...
