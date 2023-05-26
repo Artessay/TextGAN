@@ -87,3 +87,54 @@ Starting Generator MLE Training...
 [MLE-GEN] epoch 60 : pre_loss = 6.3718, NLL_oracle = 8.9228, NLL_gen = 6.3185, NLL_div = 6.3137
 [MLE-GEN] epoch 70 : pre_loss = 6.3330, NLL_oracle = 8.9155, NLL_gen = 6.2623, NLL_div = 6.267
 [MLE-GEN] epoch 80 : pre_loss = 6.3018, NLL_oracle = 8.9133, NLL_gen = 6.2121, NLL_div = 6.2323
+[MLE-GEN] epoch 90 : pre_loss = 6.2868, NLL_oracle = 8.9188, NLL_gen = 6.1828, NLL_div = 6.2078
+[MLE-GEN] epoch 100 : pre_loss = 6.2571, NLL_oracle = 8.9041, NLL_gen = 6.1557, NLL_div = 6.1855
+[MLE-GEN] epoch 110 : pre_loss = 6.2407, NLL_oracle = 8.9072, NLL_gen = 6.124, NLL_div = 6.1712
+[MLE-GEN] epoch 119 : pre_loss = 6.2326, NLL_oracle = 8.914, NLL_gen = 6.1228, NLL_div = 6.1435
+Starting Discriminator Training...
+[MLE-DIS] d_step 0: d_loss = 0.6484, train_acc = 0.6527, eval_acc = 0.5449,
+[MLE-DIS] d_step 1: d_loss = 0.1838, train_acc = 0.9584, eval_acc = 0.5410,
+[MLE-DIS] d_step 2: d_loss = 0.0346, train_acc = 0.9992, eval_acc = 0.5176,
+[MLE-DIS] d_step 3: d_loss = 0.0124, train_acc = 0.9999, eval_acc = 0.5156,
+[MLE-DIS] d_step 4: d_loss = 0.0075, train_acc = 1.0000, eval_acc = 0.5195,
+Starting Adversarial Training...
+Initial generator: NLL_oracle = 8.9126, NLL_gen = 6.1228, NLL_div = 6.153
+-----
+ADV EPOCH 0
+-----
+[ADV-GEN]: g_loss = 692.5750, NLL_oracle = 8.8716, NLL_gen = 6.1254, NLL_div = 6.1338
+[ADV-DIS] d_step 0: d_loss = 0.0114, train_acc = 0.9995, eval_acc = 0.5117,
+[ADV-DIS] d_step 1: d_loss = 0.0077, train_acc = 0.9999, eval_acc = 0.5068,
+[ADV-DIS] d_step 2: d_loss = 0.0066, train_acc = 0.9996, eval_acc = 0.5049,
+[ADV-DIS] d_step 3: d_loss = 0.0051, train_acc = 0.9998, eval_acc = 0.5059,
+-----
+ADV EPOCH 1
+-----
+[ADV-GEN]: g_loss = 115.4657, NLL_oracle = 8.8528, NLL_gen = 6.1314, NLL_div = 6.1232
+[ADV-DIS] d_step 0: d_loss = 0.0044, train_acc = 0.9998, eval_acc = 0.5098,
+[ADV-DIS] d_step 1: d_loss = 0.0031, train_acc = 0.9999, eval_acc = 0.5068,
+[ADV-DIS] d_step 2: d_loss = 0.0032, train_acc = 0.9999, eval_acc = 0.5049,
+[ADV-DIS] d_step 3: d_loss = 0.0027, train_acc = 0.9998, eval_acc = 0.5049,
+-----
+ADV EPOCH 2
+-----
+[ADV-GEN]: g_loss = 59.3400, NLL_oracle = 8.8364, NLL_gen = 6.1384, NLL_div = 6.1154
+[ADV-DIS] d_step 0: d_loss = 0.0026, train_acc = 0.9997, eval_acc = 0.5049,
+[ADV-DIS] d_step 1: d_loss = 0.0019, train_acc = 0.9998, eval_acc = 0.5049,
+[ADV-DIS] d_step 2: d_loss = 0.0013, train_acc = 0.9999, eval_acc = 0.5020,
+[ADV-DIS] d_step 3: d_loss = 0.0016, train_acc = 0.9999, eval_acc = 0.5020,
+-----
+ADV EPOCH 3
+-----
+[ADV-GEN]: g_loss = 52.3612, NLL_oracle = 8.8177, NLL_gen = 6.1455, NLL_div = 6.1108
+[ADV-DIS] d_step 0: d_loss = 0.0016, train_acc = 0.9999, eval_acc = 0.5000,
+[ADV-DIS] d_step 1: d_loss = 0.0012, train_acc = 0.9999, eval_acc = 0.4980,
+[ADV-DIS] d_step 2: d_loss = 0.0011, train_acc = 0.9999, eval_acc = 0.5000,
+[ADV-DIS] d_step 3: d_loss = 0.0009, train_acc = 0.9999, eval_acc = 0.5010,
+-----
+ADV EPOCH 4
+-----
+[ADV-GEN]: g_loss = 22.8294, NLL_oracle = 8.8098, NLL_gen = 6.1527, NLL_div = 6.1014
+[ADV-DIS] d_step 0: d_loss = 0.0014, train_acc = 0.9997, eval_acc = 0.4980,
+[ADV-DIS] d_step 1: d_loss = 0.0008, train_acc = 0.9999, eval_acc = 0.5010,
+[ADV-DIS] d_step 2: d_loss = 0.0013, train_acc = 0.9997, eval_acc = 0.5029,
