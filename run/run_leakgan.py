@@ -27,7 +27,7 @@ else:
     print('Missing argument: job_id and gpu_id. Use default job_id: {}, gpu_id: {}'.format(job_id, gpu_id))
 
 # Executables
-executable = 'python'  # specify your own python interpreter path here
+executable = 'python3'  # specify your own python interpreter path here
 rootdir = '../'
 scriptname = 'main.py'
 
@@ -54,7 +54,7 @@ model_type = 'vanilla'
 gen_init = 'normal'
 dis_init = 'uniform'
 samples_num = 10000
-batch_size = 64
+batch_size = 32 # 64
 max_seq_len = 20
 gen_lr = 0.0015
 dis_lr = 5e-5
