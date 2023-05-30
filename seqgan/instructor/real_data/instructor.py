@@ -7,6 +7,7 @@
 # @Description  : 
 # Copyrights (C) 2018. All Rights Reserved.
 
+import os
 import numpy as np
 import torch
 import torch.nn as nn
@@ -16,7 +17,6 @@ from metrics.bleu import BLEU
 from metrics.clas_acc import ACC
 from metrics.nll import NLL
 from metrics.ppl import PPL
-from utils.cat_data_loader import CatClasDataIter
 from utils.data_loader import GenDataIter
 from utils.helpers import Signal, create_logger, get_fixed_temperature
 from utils.text_process import load_dict, write_tokens, tensor_to_tokens
@@ -71,7 +71,7 @@ class BasicInstructor:
         self.clas_acc = ACC(if_use=cfg.use_clas_acc)
         self.ppl = PPL(self.train_data, self.test_data, n_gram=5, if_use=cfg.use_ppl)
         self.all_metrics = [self.bleu, self.nll_gen, self.nll_div, self.self_bleu, self.ppl]
-
+        
     def _run(self):
         print('Nothing to run in Basic Instructor!')
         pass
@@ -87,6 +87,12 @@ class BasicInstructor:
         if cfg.gen_pretrain:
             self.log.info('Load MLE pre-trained generator: {}'.format(cfg.pretrained_gen_path))
             self.gen.load_state_dict(torch.load(cfg.pretrained_gen_path, map_location='cuda:{}'.format(cfg.device)))
+        
+        # load model
+        if os.path.exists(cfg.save_dis_model_path):
+            self.dis.load_state_dict(torch.load(cfg.save_dis_model_path, map_location='cuda:{}'.format(cfg.device)))
+        if os.path.exists(cfg.save_gen_model_path):
+            self.gen.load_state_dict(torch.load(cfg.save_gen_model_path, map_location='cuda:{}'.format(cfg.device)))
 
         if cfg.CUDA:
             self.gen = self.gen.cuda()
@@ -127,35 +133,35 @@ class BasicInstructor:
         total_acc /= total_num
         return total_loss, total_acc
 
-    def train_classifier(self, epochs):
-        """
-        Classifier for calculating the classification accuracy metric of category text generation.
+    # def train_classifier(self, epochs):
+    #     """
+    #     Classifier for calculating the classification accuracy metric of category text generation.
 
-        Note: the train and test data for the classifier is opposite to the generator.
-        Because the classifier is to calculate the classification accuracy of the generated samples
-        where are trained on self.train_samples_list.
+    #     Note: the train and test data for the classifier is opposite to the generator.
+    #     Because the classifier is to calculate the classification accuracy of the generated samples
+    #     where are trained on self.train_samples_list.
 
-        Since there's no test data in synthetic data (oracle data), the synthetic data experiments
-        doesn't need a classifier.
-        """
-        import copy
+    #     Since there's no test data in synthetic data (oracle data), the synthetic data experiments
+    #     doesn't need a classifier.
+    #     """
+    #     import copy
 
-        # Prepare data for Classifier
-        clas_data = CatClasDataIter(self.clas_samples_list)
-        eval_clas_data = CatClasDataIter(self.train_samples_list)
+    #     # Prepare data for Classifier
+    #     clas_data = CatClasDataIter(self.clas_samples_list)
+    #     eval_clas_data = CatClasDataIter(self.train_samples_list)
 
-        max_acc = 0
-        best_clas = None
-        for epoch in range(epochs):
-            c_loss, c_acc = self.train_dis_epoch(self.clas, clas_data.loader, self.clas_criterion,
-                                                 self.clas_opt)
-            _, eval_acc = self.eval_dis(self.clas, eval_clas_data.loader, self.clas_criterion)
-            if eval_acc > max_acc:
-                best_clas = copy.deepcopy(self.clas.state_dict())  # save the best classifier
-                max_acc = eval_acc
-            self.log.info('[PRE-CLAS] epoch %d: c_loss = %.4f, c_acc = %.4f, eval_acc = %.4f, max_eval_acc = %.4f',
-                          epoch, c_loss, c_acc, eval_acc, max_acc)
-        self.clas.load_state_dict(copy.deepcopy(best_clas))  # Reload the best classifier
+    #     max_acc = 0
+    #     best_clas = None
+    #     for epoch in range(epochs):
+    #         c_loss, c_acc = self.train_dis_epoch(self.clas, clas_data.loader, self.clas_criterion,
+    #                                              self.clas_opt)
+    #         _, eval_acc = self.eval_dis(self.clas, eval_clas_data.loader, self.clas_criterion)
+    #         if eval_acc > max_acc:
+    #             best_clas = copy.deepcopy(self.clas.state_dict())  # save the best classifier
+    #             max_acc = eval_acc
+    #         self.log.info('[PRE-CLAS] epoch %d: c_loss = %.4f, c_acc = %.4f, eval_acc = %.4f, max_eval_acc = %.4f',
+    #                       epoch, c_loss, c_acc, eval_acc, max_acc)
+    #     self.clas.load_state_dict(copy.deepcopy(best_clas))  # Reload the best classifier
 
     @staticmethod
     def eval_dis(model, data_loader, criterion):
@@ -232,14 +238,14 @@ class BasicInstructor:
             gen_data = GenDataIter(eval_samples)
             gen_tokens = tensor_to_tokens(eval_samples, self.idx2word_dict)
             gen_tokens_s = tensor_to_tokens(self.gen.sample(200, 200, label_i=label_i), self.idx2word_dict)
-            clas_data = CatClasDataIter([eval_samples], label_i)
+            # clas_data = CatClasDataIter([eval_samples], label_i)
 
             # Reset metrics
             self.bleu.reset(test_text=gen_tokens, real_text=self.test_data_list[label_i].tokens)
             self.nll_gen.reset(self.gen, self.train_data_list[label_i].loader, label_i)
             self.nll_div.reset(self.gen, gen_data.loader, label_i)
             self.self_bleu.reset(test_text=gen_tokens_s, real_text=gen_tokens)
-            self.clas_acc.reset(self.clas, clas_data.loader)
+            # self.clas_acc.reset(self.clas, clas_data.loader)
             self.ppl.reset(gen_tokens)
 
         return [metric.get_score() for metric in self.all_metrics]
@@ -257,6 +263,8 @@ class BasicInstructor:
         """Save model state dict and generator's samples"""
         if phase != 'ADV':
             torch.save(self.gen.state_dict(), cfg.save_model_root + 'gen_{}_{:05d}.pt'.format(phase, epoch))
+            # !TODO: save generator
+            torch.save(self.gen.state_dict(), cfg.save_gen_model_path)
         save_sample_path = cfg.save_samples_root + 'samples_{}_{:05d}.txt'.format(phase, epoch)
         samples = self.gen.sample(cfg.batch_size, cfg.batch_size)
         write_tokens(save_sample_path, tensor_to_tokens(samples, self.idx2word_dict))

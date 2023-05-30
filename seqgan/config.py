@@ -24,7 +24,7 @@ gen_pretrain = False
 dis_pretrain = False
 clas_pretrain = False
 
-run_model = 'catgan'  # seqgan, leakgan, maligan, jsdgan, relgan, evogan, sentigan, catgan, dpgan, dgsan, cot
+run_model = 'seqgan'  # seqgan, leakgan, maligan, jsdgan, relgan, evogan, sentigan, catgan, dpgan, dgsan, cot
 k_label = 2  # num of labels, >=2
 gen_init = 'truncated_normal'  # normal, uniform, truncated_normal
 dis_init = 'uniform'  # normal, uniform, truncated_normal
@@ -43,7 +43,7 @@ use_population = False
 
 # ===Oracle or Real, type===
 if_real_data = False  # if use real data
-dataset = 'oracle'  # oracle, image_coco, emnlp_news, amazon_app_book, amazon_app_movie, mr15
+dataset = 'emnlp_news'  # oracle, image_coco, emnlp_news, amazon_app_book, amazon_app_movie, mr15
 model_type = 'vanilla'  # vanilla, RMC (custom)
 loss_type = 'rsgan'  # rsgan lsgan ragan vanilla wgan hinge, for Discriminator (CatGAN)
 mu_type = 'ragan'  # rsgan lsgan ragan vanilla wgan hinge
@@ -58,6 +58,14 @@ temp_adpt = 'exp'  # no, lin, exp, log, sigmoid, quad, sqrt
 mu_temp = 'exp'  # lin exp log sigmoid quad sqrt
 evo_temp_step = 1
 temperature = 1
+
+# ===Save Model===
+save_model_path = './save/' + run_model + '/' + dataset + '/'
+if not os.path.exists(save_model_path):
+    os.makedirs(save_model_path)
+save_dis_model_path = save_model_path + 'dis.pt'
+save_gen_model_path = save_model_path + 'gen.pt'
+
 
 # ===Basic Train===
 samples_num = 10000  # 10000, mr15: 2000,

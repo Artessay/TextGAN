@@ -137,3 +137,5 @@ class SeqGANInstructor(BasicInstructor):
 
             if cfg.if_save and not cfg.if_test:
                 torch.save(self.dis.state_dict(), cfg.pretrained_dis_path)
+                # $TODO: save discriminator
+                torch.save(self.dis.state_dict(), cfg.save_dis_model_path)
